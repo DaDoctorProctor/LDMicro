@@ -1,0 +1,17 @@
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity PortMain is
+  Port ( sw: in std_logic_vector(7 downto 0);
+         led: out STD_LOGIC_VECTOR(7 downto 0);
+         JA: out STD_LOGIC_VECTOR(7 downto 0) 
+  );
+end PortMain;
+
+architecture Behavioral of PortMain is
+
+begin
+JA(7 downto 0) <= NOT sw(7 downto 0);
+led(7 downto 0) <= sw(7 downto 0);
+end Behavioral;
