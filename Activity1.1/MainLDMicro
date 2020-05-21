@@ -1,0 +1,73 @@
+LDmicro0.2
+MICRO=Atmel AVR ATmega328 28-PDIP
+CYCLE=10000 us at Timer1, YPlcCycleDuty:0, ConfigurationWord(s):0x0
+CRYSTAL=16000000 Hz
+BAUD=9600 Hz, RATE=1000000 Hz, SPEED=100000 Hz
+COMPILED=C:\Users\Desktop\LDMICROSEM3\LDMICROEX1\v1.hex
+COMPILER=IHEX
+
+PULL-UP LIST
+    PB: 0xFFFFFFFF 
+    PC: 0xFFFFFFFF 
+    PD: 0xFFFFFFFF 
+END
+
+VAR LIST
+    2 bytes TTPaso1
+    2 bytes TTPaso2
+    2 bytes Tnew 	Now not used !!!
+END
+
+IO LIST
+    Xen at 16 0 0
+    Xstop at 15 0 0
+    Xtempsens at 14 0 0
+    Ybombaprod at 13 0 0
+    Ycalef at 12 0 0
+    Yrefri at 11 0 0
+    Yvaldesv at 6 0 0
+    Yvalvprod at 5 0 0
+    Yvalvret at 4 0 0
+END
+
+PROGRAM
+RUNG 1
+  PARALLEL
+    CONTACTS Xen 0 0
+    CONTACTS Renlatch 0 0
+  END
+  CONTACTS Xstop 1 0
+  COIL Renlatch 0 0 0 0
+END
+RUNG 2
+  CONTACTS Renlatch 0 0
+  TON TTPaso1 10000000 0
+  COIL Rpaso1 0 0 0 0
+END
+RUNG 3
+  CONTACTS Renlatch 0 0
+  TON TTPaso2 5000000 0
+  COIL Yrefri 0 0 0 0
+END
+RUNG 4
+  CONTACTS Renlatch 0 0
+  COIL Ycalef 0 0 0 0
+END
+RUNG 5
+  CONTACTS Renlatch 0 0
+  CONTACTS Rpaso1 0 0
+  PARALLEL
+    COIL Ybombaprod 0 0 0 0
+    COIL Yvalvprod 0 0 0 0
+  END
+END
+RUNG 6
+  CONTACTS Renlatch 0 0
+  CONTACTS Xtempsens 1 0
+  COIL Yvalvret 0 0 0 0
+END
+RUNG 7
+  CONTACTS Renlatch 0 0
+  CONTACTS Xtempsens 0 0
+  COIL Yvaldesv 0 0 0 0
+END
